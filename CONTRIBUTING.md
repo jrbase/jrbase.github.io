@@ -36,11 +36,11 @@ the current site generator does not honor any; this may change in the future).
 The development server recognizes when files change (including static files)
 and local changes will be automatically reflected in your browser upon reload.
 
-### Local Installation
+### Local Installation 本地安装这个项目
 
 It is possible to run the development server locally also. The general gist of
 how to do so correctly is:
-
+安装Pythen 3.8
 - Install Python 3.8 if you do not already have it (direct install is fine, but
   [pyenv][5] is probably the best way if you have other Python projects).
 - Create a Python 3.8 [venv][6]. Once it is created, activate it in your shell
