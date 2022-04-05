@@ -8,8 +8,8 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" rel="stylesheet"></link>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="//www.gstatic.com/glue/v22_1/glue.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=244d225c">
-    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=244d225c">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=70931188">
+    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=70931188">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.0.min.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/glue/latest/glue-detect.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
         $('html').css('visibility', 'visible');
       });
     </script>
-    <script type="text/javascript" src="/assets/js/global.js?v=244d225c"></script>
+    <script type="text/javascript" src="/assets/js/global.js?v=70931188"></script>
     
 <script type="text/javascript" src="/assets/js/syntax.js"></script>
 
@@ -198,7 +198,7 @@
     <li class="nav-item">
       <a href="/2">
         <span class="aip-number">2</span>
-        AIP Numbering
+        AIP Numbering AIP 编号
       </a>
     </li>
     <li class="nav-item">
@@ -246,7 +246,7 @@
     <li class="nav-item">
       <a href="/126">
         <span class="aip-number">126</span>
-        Enumerations
+        Enumerations 枚举
       </a>
     </li>
     <li class="nav-item">
@@ -590,7 +590,7 @@
   <section id="aip-toc" class="docs-component-sidebar-toc">
     <div class="toc"><span class="toctitle">Contents</span><ul>
 <li><a href="#guidance">Guidance</a><ul>
-<li><a href="#scalars-and-messages">Scalars and messages</a></li>
+<li><a href="#scalars-and-messages">Scalars and messages 标量和消息</a></li>
 <li><a href="#update-strategies">Update strategies</a></li>
 </ul>
 </li>
@@ -661,11 +661,31 @@ resource pose a challenge for pagination.</p>
   a sub-resource instead.</li>
 </ul>
 </li>
-<li>Repeated fields <strong>must not</strong> represent the body of another resource inline.
+<li>
+<p>Repeated fields <strong>must not</strong> represent the body of another resource inline.
   Instead, the message <strong>should</strong> provide the resource names of the associated
-  resources.</li>
+  resources.</p>
+</li>
+<li>
+<p>重复字段<strong>必须</strong>使用复数字段名称。</p>
+<ul>
+<li>如果英文单复数单词相同（“moose”、“info”），
+   字典中的词<strong>必须</strong>被使用，而不是试图创造一个新的
+   复数形式。</li>
 </ul>
-<h3 id="scalars-and-messages">Scalars and messages</h3>
+</li>
+<li>重复字段<strong>应该</strong>有一个强制上限，不会导致
+   单一资源负载变得太大。 一个好的经验法则是 100
+   元素。<ul>
+<li>如果重复数据有可能太大，API<strong>应该</strong>使用
+   一个子资源。</li>
+</ul>
+</li>
+<li>重复字段<strong>不得</strong>代表另一个内联资源的主体。
+   相反，消息<strong>应该</strong>提供关联的资源名称
+   资源。</li>
+</ul>
+<h3 id="scalars-and-messages">Scalars and messages 标量和消息</h3>
 <p>Repeated fields <strong>should</strong> use a scalar type (such as <code>string</code>) if they are
 certain that additional data will not be needed in the future, as using a
 message type adds significant cognitive overhead and leads to more complicated

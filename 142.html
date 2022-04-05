@@ -8,8 +8,8 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" rel="stylesheet"></link>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="//www.gstatic.com/glue/v22_1/glue.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=244d225c">
-    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=244d225c">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=70931188">
+    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=70931188">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.0.min.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/glue/latest/glue-detect.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
         $('html').css('visibility', 'visible');
       });
     </script>
-    <script type="text/javascript" src="/assets/js/global.js?v=244d225c"></script>
+    <script type="text/javascript" src="/assets/js/global.js?v=70931188"></script>
     
 <script type="text/javascript" src="/assets/js/syntax.js"></script>
 
@@ -198,7 +198,7 @@
     <li class="nav-item">
       <a href="/2">
         <span class="aip-number">2</span>
-        AIP Numbering
+        AIP Numbering AIP 编号
       </a>
     </li>
     <li class="nav-item">
@@ -246,7 +246,7 @@
     <li class="nav-item">
       <a href="/126">
         <span class="aip-number">126</span>
-        Enumerations
+        Enumerations 枚举
       </a>
     </li>
     <li class="nav-item">
@@ -665,6 +665,19 @@ published, the field storing the time when this happens would use the
 imperative form of the verb "to publish" ("publish") resulting in a field
 called <code>publish_time</code>. Fields <strong>should not</strong> be named using the past tense
 (such as <code>published_time</code>, <code>created_time</code> or <code>last_updated_time</code>).</p>
+<p>表示绝对时间点的字段（独立于任何时区
+或日历）<strong>应该</strong>使用 <a href="https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/timestamp.proto"><code>google.protobuf.Timestamp</code></a> 类型，
+（它在后台使用 UNIX 时间戳并保持纳秒精度）。</p>
+<p>这些字段<strong>应该</strong>具有以 <code>_time</code> 结尾的名称，例如 <code>create_time</code> 或
+<code>update_time</code>。 对于重复的字段，名称<strong>应该</strong>以<code>_times</code>结尾
+反而。</p>
+<p>许多时间戳字段引用一个活动（例如，<code>create_time</code> 引用
+到创建适用资源的时间）。 对于这些，字段<strong>应该</strong>
+以 <code>{imperative}_time</code> 形式命名。 例如，如果一本书正在
+已发布，存储发生这种情况的时间的字段将使用
+动词“发布”（“发布”）的命令式形式导致字段
+称为“发布时间”。 字段<strong>不应</strong>使用过去时命名
+（例如 <code>published_time</code>、<code>created_time</code> 或 <code>last_updated_time</code>）。</p>
 <h3 id="durations">Durations</h3>
 <p>Fields that represent a span between two points in time (independent of any
 time zone or calendar) <strong>should</strong> use the
