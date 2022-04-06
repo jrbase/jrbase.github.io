@@ -8,8 +8,8 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" rel="stylesheet"></link>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="//www.gstatic.com/glue/v22_1/glue.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=0c7bae32">
-    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=0c7bae32">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=7089168e">
+    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=7089168e">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.0.min.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/glue/latest/glue-detect.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
         $('html').css('visibility', 'visible');
       });
     </script>
-    <script type="text/javascript" src="/assets/js/global.js?v=0c7bae32"></script>
+    <script type="text/javascript" src="/assets/js/global.js?v=7089168e"></script>
     
 <script type="text/javascript" src="/assets/js/syntax.js"></script>
 
@@ -589,8 +589,8 @@
 
   <section id="aip-toc" class="docs-component-sidebar-toc">
     <div class="toc"><span class="toctitle">Contents</span><ul>
-<li><a href="#guidance">Guidance</a><ul>
-<li><a href="#collection-identifiers">Collection identifiers</a></li>
+<li><a href="#guidance">Guidance　指导</a><ul>
+<li><a href="#collection-identifiers-id">Collection identifiers 集合ID</a></li>
 <li><a href="#resource-id-segments">Resource ID segments</a></li>
 <li><a href="#resource-id-aliases">Resource ID aliases</a></li>
 <li><a href="#full-resource-names">Full resource names</a></li>
@@ -648,11 +648,14 @@
 create, retrieve, and manipulate. Additionally, resources are <em>named</em>: each
 resource has a unique identifier that users use to reference that resource, and
 these names are what users should <em>store</em> as the canonical names for the
-resources.</p>
-<h2 id="guidance">Guidance</h2>
+resources.
+大多数 API 都公开了用户能够创建、检索和操作的资源（它们的主要名词）。
+每个资源都有一个用户用来引用该资源的唯一标识符，这些名称是用户应该存储的资源的规范名称。</p>
+<h2 id="guidance">Guidance　指导</h2>
 <p>All resource names defined by an API <strong>must</strong> be unique within that API. (See
 the section on <a href="#full-resource-names">full resource names</a> below for more
-information on referring to resources across APIs.)</p>
+information on referring to resources across APIs.)
+API定义的所有资源名称<strong>必须</strong>在该API中是唯一的。</p>
 <p>Resource names are formatted according to the <a href="https://datatracker.ietf.org/doc/html/rfc3986#appendix-A">URI path schema</a>, but without
 the leading slash:</p>
 <pre><code>  publishers/123/books/les-miserables
@@ -663,47 +666,61 @@ the leading slash:</p>
   identifiers (example: <code>publishers</code>, <code>books</code>, <code>users</code>) and resource IDs
   (example: <code>123</code>, <code>les-miserables</code>, <code>vhugo1802</code>).</li>
 <li>Resource names <strong>must</strong> use the <code>/</code> character to separate individual segments
-  of the resource name.<ul>
-<li>Non-terminal segments of a resource name <strong>must not</strong> contain a <code>/</code>
-  character.</li>
-<li>The terminal segment of a resource name <strong>should not</strong> contain a <code>/</code>
-  character.</li>
-</ul>
+  of the resource name.</li>
+<li>
+<p>资源名称通常应该由集合ID(比如: <code>publishers</code>, <code>books</code>, <code>users</code>)和资源ID(例如: <code>123</code>, <code>les-miserables</code>, <code>vhugo1802</code>).</p>
 </li>
-<li>Resource names <strong>should</strong> only use characters available in DNS names, as
-  defined by <a href="https://tools.ietf.org/html/rfc1123">RFC-1123</a>.<ul>
-<li>Additionally, resource IDs <strong>should not</strong> use upper-case letters.</li>
-<li>If additional characters are necessary, resource names <strong>should not</strong> use
-  characters that require URL-escaping, or characters outside of ASCII.</li>
-<li>If Unicode characters can not be avoided, resource names <strong>must</strong> be stored
-  in Normalization Form C (see <a href="/210">AIP-210</a>).</li>
-</ul>
-</li>
-<li>Resources <strong>must</strong> expose a <code>name</code> field that contains its resource name.<ul>
-<li>Resources <strong>may</strong> provide the resource ID as a separate field (e.g.
-  <code>book_id</code>).</li>
-<li>Resources <strong>may</strong> expose a separate, system-generated unique ID field
-  (<code>uid</code>).</li>
-<li>Resources <strong>must not</strong> expose tuples, self-links, or other forms of
-  resource identification.</li>
-<li>All ID fields <strong>should</strong> be strings.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Note:</strong> Resource names as described here are used within the scope of a
-single API (or else in situations where the owning API is clear from the
-context), and are only required to be unique within that scope. For this
-reason, they are sometimes called <em>relative resource names</em> to distinguish them
-from <em>full resource names</em> (discussed below).</p>
-<h3 id="collection-identifiers">Collection identifiers</h3>
-<p>The collection identifier segments in a resource name <strong>must</strong> be the plural
-form of the noun used for the resource. (For example, a collection of
-<code>Publisher</code> resources is called <code>publishers</code> in the resource name.)</p>
+<li>
+<p>资源名称<strong>必须</strong>使用 <code>/</code> 字符来分隔各个段的资源名称。</p>
 <ul>
-<li>Collection identifiers <strong>must</strong> be concise American English terms.</li>
-<li>Collection identifiers <strong>must</strong> be in <code>camelCase</code>.</li>
-<li>Collection identifiers <strong>must</strong> begin with a lower-cased letter and contain
-  only ASCII letters and numbers (<code>/[a-z][a-zA-Z0-9]*/</code>).</li>
+<li>Non-terminal segments of a resource name <strong>must not</strong> contain a <code>/</code> character.</li>
+<li>资源名称的非终结段<strong>不得</strong>包含 <code>/</code> 字符。</li>
+<li>The terminal segment of a resource name <strong>should not</strong> contain a <code>/</code>　character.</li>
+</ul>
+</li>
+<li>
+<p>Resource names <strong>should</strong> only use characters available in DNS names, as
+  defined by <a href="https://tools.ietf.org/html/rfc1123">RFC-1123</a>.</p>
+<ul>
+<li>Additionally, resource IDs <strong>should not</strong> use upper-case letters.
+　此外，资源 ID <strong>不应</strong>使用大写字母。</li>
+<li>
+<p>If additional characters are necessary, resource names <strong>should not</strong> use
+  characters that require URL-escaping, or characters outside of ASCII.
+  如果需要额外的字符，资源名称<strong>不应该</strong>使用需要URL转义的字符或ASCII 以外的字符。</p>
+</li>
+<li>
+<p>If Unicode characters can not be avoided, resource names <strong>must</strong> be stored
+  in Normalization Form C (see <a href="/210">AIP-210</a>).
+  如果不能避免Unicode字符，资源名必须存储
+   标准化形式　C (see <a href="/210">AIP-210</a>).</p>
+</li>
+<li>Resources <strong>must</strong> expose a <code>name</code> field that contains its resource name.
+资源<strong>必须</strong>公开一个包含其资源名称的<code>名称</code>字段。</li>
+<li>Resources <strong>may</strong> provide the resource ID as a separate field (e.g.　<code>book_id</code>).
+资源<strong>可以</strong>提供资源 ID 作为单独的字段（例如，<code>book_id</code>）。</li>
+<li>Resources <strong>may</strong> expose a separate, system-generated unique ID field (<code>uid</code>).
+资源<strong>也许</strong>会暴露一个独立的系统生产的唯一ID字段(<code>uid</code>)。</li>
+<li>Resources <strong>must not</strong> expose tuples, self-links, or other forms of resource identification.
+资源<strong>不得</strong>暴露元组、自链接或其他形式的资源标识。</li>
+<li>All ID fields <strong>should</strong> be strings.
+　所有 ID 字段 <strong>应</strong> 为字符串。
+<strong>Note:</strong> Resource names as described here are used within the scope of a single API (or else in situations where the owning API is clear from the context), and are only required to be unique within that scope. For this　reason, they are sometimes called <em>relative resource names</em> to distinguish them　from <em>full resource names</em> (discussed below).
+此处所述的资源名称在单个 API 的范围内使用（或者在拥有 API 的上下文中很清楚的情况下使用），并且只需要在该范围内是唯一的。因此，它们有时称为相对资源名称，以将其与完整资源名称区分开来(下面讨论)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="collection-identifiers-id">Collection identifiers 集合ID</h3>
+<p>The collection identifier segments in a resource name <strong>must</strong> be the plural form of the noun used for the resource. (For example, a collection of <code>Publisher</code> resources is called <code>publishers</code> in the resource name.)
+资源名称中的集合标识符段 <strong>必须</strong> 是用于资源的名词的复数形式。（例如，<code>Publisher</code>资源的集合在资源名称中称为<code>publishers</code>。</p>
+<ul>
+<li>Collection identifiers <strong>must</strong> be concise American English terms.
+集合标识符 <strong>必须</strong> 是简明的美式英语术语。</li>
+<li>Collection identifiers <strong>must</strong> be in <code>camelCase</code>.
+集合标识符 <strong>必须</strong> 是<code>camelCase</code>。</li>
+<li>Collection identifiers <strong>must</strong> begin with a lower-cased letter and contain　only ASCII letters and numbers (<code>/[a-z][a-zA-Z0-9]*/</code>).
+集合标识符 <strong>必须</strong> 以小写字母开头，并且仅包含ASCII字母和数字(<code>/[a-z][a-zA-Z0-9]*/</code>).
+　</li>
 <li>Collection identifiers <strong>must</strong> be plural.<ul>
 <li>In situations where there is no plural word ("info"), or where the singular
   and plural terms are the same ("moose"), the non-pluralized (singular) form
@@ -711,8 +728,15 @@ form of the noun used for the resource. (For example, a collection of
   such cases (e.g, avoid "infos").</li>
 </ul>
 </li>
+<li>集合标识符 <strong>必须</strong> 为复数形式。<ul>
+<li>在没有复数词("info")的情况下，或者单数
+  和复数术语是相同的("moose")，非复数（单数）形式
+  是正确的。集合段 <strong>不得</strong> 通过在 中添加"s"来表示"coin"字样
+  此类情况（例如，避免使用"infos"）。</li>
 </ul>
-<h4 id="nested-collections">Nested collections</h4>
+</li>
+</ul>
+<h4 id="nested-collections">Nested collections 嵌套集合</h4>
 <p>If a resource name contains multiple levels of a hierarchy, and a parent
 collection's name is used as a prefix for the child resource's name, the child
 collection's name <strong>may</strong> omit the prefix. For example, given a collection of
