@@ -8,8 +8,8 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" rel="stylesheet"></link>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="//www.gstatic.com/glue/v22_1/glue.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=7089168e">
-    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=7089168e">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=65cb5a8a">
+    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=65cb5a8a">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.0.min.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/glue/latest/glue-detect.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
         $('html').css('visibility', 'visible');
       });
     </script>
-    <script type="text/javascript" src="/assets/js/global.js?v=7089168e"></script>
+    <script type="text/javascript" src="/assets/js/global.js?v=65cb5a8a"></script>
     
 <script type="text/javascript" src="/assets/js/syntax.js"></script>
 
@@ -591,11 +591,11 @@
     <div class="toc"><span class="toctitle">Contents</span><ul>
 <li><a href="#guidance">Guidance　指导</a><ul>
 <li><a href="#collection-identifiers-id">Collection identifiers 集合ID</a></li>
-<li><a href="#resource-id-segments">Resource ID segments</a></li>
-<li><a href="#resource-id-aliases">Resource ID aliases</a></li>
+<li><a href="#resource-id-segments-id">Resource ID segments 资源 ID 段</a></li>
+<li><a href="#resource-id-aliases-id">Resource ID aliases 资源 ID 别名</a></li>
 <li><a href="#full-resource-names">Full resource names</a></li>
 <li><a href="#resource-uris">Resource URIs</a></li>
-<li><a href="#fields-representing-resource-names">Fields representing resource names</a></li>
+<li><a href="#fields-representing-resource-names">Fields representing resource names　表示资源名称的字段</a></li>
 <li><a href="#fields-representing-a-resources-parent">Fields representing a resource's parent</a></li>
 <li><a href="#fields-representing-another-resource">Fields representing another resource</a></li>
 </ul>
@@ -738,90 +738,110 @@ the leading slash:</p>
 </ul>
 <h4 id="nested-collections">Nested collections 嵌套集合</h4>
 <p>If a resource name contains multiple levels of a hierarchy, and a parent
-collection's name is used as a prefix for the child resource's name, the child
-collection's name <strong>may</strong> omit the prefix. For example, given a collection of
-<code>UserEvent</code> resources that would normally be nested underneath <code>users</code>:</p>
+collection's name is used as a prefix for the child resource's name, the child collection's name <strong>may</strong> omit the prefix. For example, given a collection of <code>UserEvent</code> resources that would normally be nested underneath <code>users</code>:
+如果资源名称包含多个层次结构级别,并且父集合的名称用作子资源名称的前缀，子集合的名称<strong>可以</strong>省略前缀。 例如，给定一组通常嵌套在 <code>users</code> 下的 <code>UserEvent</code> 资源：</p>
 <div class="highlight language-None"><pre><span></span><code>users/vhugo1802/userEvents/birthday-dinner-226
 </code></pre></div>
 <p>An API <strong>should</strong> use the less-redundant form:</p>
 <div class="highlight language-None"><pre><span></span><code>users/vhugo1802/events/birthday-dinner-226
 </code></pre></div>
-<p>In this situation, the <em>message</em> is still called <code>UserEvent</code>; only the resource
-name is shortened.</p>
+<p>In this situation, the <em>message</em> is still called <code>UserEvent</code>; only the resource name is shortened.
+在这种情况下，<em>message</em> 仍然被称为 <code>UserEvent</code>； 只有资源名称被缩短。</p>
 <p><strong>Note:</strong> APIs wishing to do this <strong>must</strong> follow this format consistently
-throughout the API, or else not at all.</p>
-<h3 id="resource-id-segments">Resource ID segments</h3>
-<p>A resource ID segment identifies the resource within its parent collection. In
-the resource name <code>publishers/123/books/les-miserables</code>, <code>123</code> is the resource
-ID for the publisher, and <code>les-miserables</code> is the resource ID for the book.</p>
+throughout the API, or else not at all.
+希望执行此操作的 API <strong>必须</strong>始终遵循此格式在整个 API 中，或者根本没有。</p>
+<h3 id="resource-id-segments-id">Resource ID segments 资源 ID 段</h3>
+<p>A resource ID segment identifies the resource within its parent collection. In the resource name <code>publishers/123/books/les-miserables</code>, <code>123</code> is the resource ID for the publisher, and <code>les-miserables</code> is the resource ID for the book.
+资源 ID 段标识其父集合中的资源。 在资源名称<code>publishers/123/books/les-miserables</code>中，<code>123</code>是出版商的资源ID，<code>les-miserables</code>是图书的资源ID。</p>
 <ul>
 <li>Resource IDs <strong>may</strong> be either always set by users (required on resource
   creation), optionally set by users (optional on resource creation,
-  server-generated if unset), or never set by users (not accepted at resource
-  creation). They <strong>should</strong> be immutable once created.<ul>
-<li>If resource IDs are user-settable, the API <strong>must</strong> document allowed
+  server-generated if unset), or never set by users (not accepted at resource creation). They <strong>should</strong> be immutable once created.
+  资源 ID <strong>可以</strong>始终由用户设置（创建资源时需要），可选地由用户设置（在创建资源时可选，如果未设置，则由服务器生成），或者从不由用户设置（在创建资源时不接受）。 它们<strong>应该</strong>在创建后是不可变的。<ul>
+<li>
+<p>If resource IDs are user-settable, the API <strong>must</strong> document allowed
   formats. User-settable resource IDs <strong>should</strong> conform to <a href="https://tools.ietf.org/html/rfc1034">RFC-1034</a>;
-  which restricts to letters, numbers, and hyphen, with the first character
-  a letter, the last a letter or a number, and a 63 character maximum.<ul>
-<li>Additionally, user-settable resource IDs <strong>should</strong> restrict letters to
-  lower-case (<code>^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$</code>).</li>
-<li>Characters outside of ASCII <strong>should not</strong> be permitted; however, if
+  which restricts to letters, numbers, and hyphen, with the first character a letter, the last a letter or a number, and a 63 character maximum.
+  如果资源 ID 可由用户设置，则 API <strong>必须</strong>记录允许的格式。 用户可设置的资源 ID <strong>应该</strong>符合 <a href="https://tools.ietf.org/html/rfc1034">RFC-1034</a>；限制为字母、数字和连字符，第一个字符为字母，最后一个字符为字母或数字，最多 63 个字符。</p>
+<ul>
+<li>Additionally, user-settable resource IDs <strong>should</strong> restrict letters to lower-case (<code>^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$</code>).
+此外，用户可设置的资源 ID <strong>应</strong>将字母限制为小写。</li>
+<li>
+<p>Characters outside of ASCII <strong>should not</strong> be permitted; however, if
   Unicode characters are necessary, APIs <strong>must</strong> follow guidance in
-  <a href="/210">AIP-210</a>.</li>
-<li>User-settable IDs <strong>should not</strong> be permitted to be a UUID (or any value
-  that syntactically appears to be a UUID).</li>
-</ul>
+  <a href="/210">AIP-210</a>.ASCII 以外的字符<strong>不应该</strong>被允许； 但是，如果需要 Unicode 字符，API <strong>必须</strong>遵循<a href="/210">AIP-210</a></p>
 </li>
+<li>
+<p>User-settable IDs <strong>should not</strong> be permitted to be a UUID (or any value that syntactically appears to be a UUID).
+用户可设置的 ID <strong>不应</strong>被允许为 UUID（或任何在语法上看起来是 UUID 的值）。</p>
+<ul>
 <li>If resource IDs are not user-settable, the API <strong>should</strong> document the
-  basic format, and any upper boundaries (for example, "at most 63
-  characters").</li>
+basic format, and any upper boundaries (for example, "at most 63
+characters").
+如果资源 ID 不是用户可设置的，API <strong>应该</strong>记录基本格式和任何上限（例如，“最多 63 个字符”）。</li>
 <li>For more information, see the <a href="/133#user-specified-ids">create</a> standard method.</li>
 </ul>
 </li>
 </ul>
-<p><strong>Important:</strong> Resources that are declarative-friendly (<a href="/128">AIP-128</a>) <strong>must</strong> use
-user-settable resource IDs.</p>
-<h3 id="resource-id-aliases">Resource ID aliases</h3>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Important:</strong> Resources that are declarative-friendly (<a href="/128">AIP-128</a>) <strong>must</strong> use user-settable resource IDs.
+声明友好的资源（<a href="/128">AIP-128</a>）<strong>必须</strong>使用用户可设置的资源 ID。</p>
+<h3 id="resource-id-aliases-id">Resource ID aliases 资源 ID 别名</h3>
 <p>It is sometimes valuable to provide an alias for common lookup patterns for
 resource IDs. For example, an API with <code>users</code> at the top of its resource
 hierarchy may wish to provide <code>users/me</code> as a shortcut for retrieving
-information for the authenticated user.</p>
+information for the authenticated user.
+有时为资源 ID 的常见查找模式提供别名很有价值。 例如，在其资源层次结构顶部具有<code>users</code>的 API 可能希望提供 <code>users/me</code>作为检索经过身份验证的用户信息的快捷方式。</p>
 <p>APIs <strong>may</strong> provide programmatic aliases for common lookup patterns. However,
-all data returned from the API <strong>must</strong> use the canonical resource name.</p>
+all data returned from the API <strong>must</strong> use the canonical resource name.
+API <strong>可以</strong>为常见的查找模式提供编程别名。 然而，从 API 返回的所有数据<strong>必须</strong>使用规范的资源名称</p>
 <h3 id="full-resource-names">Full resource names</h3>
 <p>In most cases, resource names are used within a single API only, or else they
 are used in contexts where the owning API is clear (for example,
+<code>string pubsub_topic</code>).
+在大多数情况下，资源名称仅在单个 API 中使用，或者在拥有 API 明确的上下文中使用(for example,
 <code>string pubsub_topic</code>).</p>
 <p>However, sometimes it is necessary for services to refer to resources in an
 arbitrary API. In this situation, the service <strong>should</strong> use the <em>full resource
 name</em>, a schemeless URI with the owning API's service endpoint, followed by the
-relative resource name:</p>
+relative resource name:
+但是，有时服务需要引用任意 API 中的资源。 在这种情况下，服务<strong>应该</strong>使用完整的资源名称，即拥有 API 服务端点的schemeless的URI，后跟相对资源名称：</p>
 <div class="highlight language-None"><pre><span></span><code>//library.googleapis.com/publishers/123/books/les-miserables
 //calendar.googleapis.com/users/vhugo1802
 </code></pre></div>
 <p><strong>Note:</strong> The full resource name <strong>should not</strong> be used for cross-API
 references where the owning API is clear; it is only used if a field refers to
-resources in multiple APIs where ambiguity is possible.</p>
+resources in multiple APIs where ambiguity is possible.
+完整的资源名称<strong>不应</strong>用于明确拥有 API 的跨 API 引用； 它仅在字段引用多个 API 中可能存在歧义的资源时使用。</p>
 <h3 id="resource-uris">Resource URIs</h3>
 <p>The full resource name is a schemeless URI, but slightly distinct from the full
 URIs we use to access a resource. The latter adds two components: the protocol
-(HTTPS) and the API version:</p>
+(HTTPS) and the API version:
+完整的资源名称是schemeless的 URI，但与完整的资源名称略有不同
+我们用来访问资源的 URI。 后者增加了两个组件：协议
+(HTTPS) 和 API 版本：</p>
 <div class="highlight language-None"><pre><span></span><code>https://library.googleapis.com/v1/publishers/123/books/les-miserables
 https://calendar.googleapis.com/v3/users/vhugo1802
 </code></pre></div>
 <p>The version is not included in the full resource name because the full resource
 name is expected to persist from version to version. Even though the API
 surface may change between major versions, multiple major versions of the same
-API are expected to use the same underlying data.</p>
+API are expected to use the same underlying data.
+版本不包含在完整资源名称中，因为完整资源名称预计会在版本之间保持不变。 尽管 API 表面可能在主要版本之间发生变化，但同一 API 的多个主要版本应该使用相同的底层数据。</p>
 <p><strong>Note:</strong> The correlation between the full resource name and the service's
 hostname is by convention. In particular, one service is able to have multiple
 hostnames (example use cases include regionalization or staging environments),
-and the full resource does not change between these.</p>
-<h3 id="fields-representing-resource-names">Fields representing resource names</h3>
+and the full resource does not change between these.
+资源全名与服务的主机名的相关性是约定俗成的。 特别是，一项服务可以有多个主机名（示例用例包括区域化或暂存环境），并且完整资源不会在这些主机名之间发生变化。</p>
+<h3 id="fields-representing-resource-names">Fields representing resource names　表示资源名称的字段</h3>
 <p>When defining a resource, the first field <strong>should</strong> be the resource name,
 which <strong>must</strong> be of type <code>string</code> and <strong>must</strong> be called <code>name</code> for the
 resource name. The message <strong>should</strong> include a <code>google.api.resource</code>
-annotation declaring the type (see <a href="/123">AIP-123</a> for more on this).</p>
+annotation declaring the type (see <a href="/123">AIP-123</a> for more on this).
+定义资源时，第一个字段<strong>应该</strong>是资源名称，<strong>必须</strong>是<code>string</code>类型并且<strong>必须</strong>称为<code>name</code>作为资源名称。 message<strong>应该</strong>包含声明类型的 <code>google.api.resource</code> 注释（有关此内容的更多信息，请参见 <a href="/123">AIP-123</a>）。</p>
 <div class="highlight language-proto"><pre><span></span><code><span class="c1">// A representation of a book in the library.</span>
 <span class="kd">message</span> <span class="nc">Book</span> <span class="p">{</span>
   <span class="k">option</span> <span class="p">(</span><span class="n">google.api.resource</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
@@ -841,7 +861,13 @@ annotation declaring the type (see <a href="/123">AIP-123</a> for more on this).
 <strong>should</strong> be the resource name, which <strong>must</strong> be of type <code>string</code> and
 <strong>must</strong> be called <code>name</code> for the resource name. The field <strong>should</strong> also be
 annotated with the <code>google.api.resource_reference</code> annotation, referencing the
-resource type (<a href="/123">AIP-123</a>).</p>
+resource type (<a href="/123">AIP-123</a>).
+定义检索或作用于现有资源的方法时
+（如<code>GetBook</code>或<code>ArchiveBook</code>），请求消息的第一个字段
+<strong>应该</strong>是资源名称，<strong>必须</strong>是<code>string</code>类型并且
+<strong>必须</strong> 为资源名称命名为 <code>name</code>。 字段<strong>应该</strong>也是
+使用 <code>google.api.resource_reference</code> 注释进行注释，引用
+资源类型（<a href="/123">AIP-123</a>）。</p>
 <div class="highlight language-proto"><pre><span></span><code><span class="c1">// Request message for ArchiveBook</span>
 <span class="kd">message</span> <span class="nc">ArchiveBookRequest</span> <span class="p">{</span>
   <span class="c1">// The book to archive.</span>
@@ -857,14 +883,17 @@ resource type (<a href="/123">AIP-123</a>).</p>
 </code></pre></div>
 <p><strong>Note:</strong> Fields <strong>must not</strong> be called <code>name</code> except for this purpose. For
 other use cases, either use a different term or prepend an adjective (for
-example: <code>display_name</code>).</p>
+example: <code>display_name</code>).
+除此目的外，字段<strong>不得</strong>称为<code>name</code>。对于其他用例，要么使用不同的术语，要么在前面加上形容词（例如：<code>display_name</code>）。</p>
 <h3 id="fields-representing-a-resources-parent">Fields representing a resource's parent</h3>
 <p>When defining a method that retrieves resources from a collection or adds a new
 resource to a collection (such as <code>ListBooks</code> or <code>CreateBook</code>), the first field
 of the request message <strong>should</strong> be of type <code>string</code> and <strong>should</strong> be called
 <code>parent</code> for the resource name of the collection. The <code>parent</code> field <strong>should</strong>
 also be annotated with the <code>google.api.resource_reference</code> annotation,
-referencing the parent's resource type (<a href="/123">AIP-123</a>).</p>
+referencing the parent's resource type (<a href="/123">AIP-123</a>).
+当定义从集合中检索资源或将新资源添加到集合中的方法时（例如<code>ListBooks</code>或<code>CreateBook</code>），请求消息的第一个字段<strong>应该</strong>是<code>string</code>类型和<em> </em>应该<strong>被调用
+<code>parent</code> 为集合的资源名称。 <code>parent</code> 字段</strong>也应该使用 <code>google.api.resource_reference</code> 注释进行注释，引用父资源类型 (<a href="/123">AIP-123</a>)。</p>
 <div class="highlight language-proto"><pre><span></span><code><span class="c1">// Request message for ListBooks.</span>
 <span class="kd">message</span> <span class="nc">ListBooksRequest</span> <span class="p">{</span>
   <span class="c1">// The publisher to list books from.</span>
@@ -878,7 +907,8 @@ referencing the parent's resource type (<a href="/123">AIP-123</a>).</p>
 </code></pre></div>
 <p>If there is more than one possible parent type, the <code>parent</code> field <strong>should</strong>
 be annotated with the <code>child_type</code> key on <code>google.api.resource_reference</code>
-instead:</p>
+instead:
+如果有多个可能的父类型，则 <code>parent</code> 字段<strong>应该</strong> 使用 <code>google.api.resource_reference</code> 上的 <code>child_type</code> 键进行注释：</p>
 <div class="highlight language-proto"><pre><span></span><code><span class="c1">// Request message for ListBooks.</span>
 <span class="kd">message</span> <span class="nc">ListBooksRequest</span> <span class="p">{</span>
   <span class="c1">// The parent to list books from.</span>
@@ -895,19 +925,24 @@ instead:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> Fields <strong>should not</strong> be called <code>parent</code> except for this purpose. For
-other use cases, use a synonymous term if possible.</p>
+other use cases, use a synonymous term if possible.
+字段<strong>不应</strong>称为“父”，除非用于此目的。 对于其他用例，尽可能使用同义词。</p>
 <h3 id="fields-representing-another-resource">Fields representing another resource</h3>
 <p>When referencing a resource name for a different resource, the field <strong>should</strong>
 be of type <code>string</code> for the resource name, and the field name <strong>should</strong> be
-equivalent to the corresponding message's name in snake case.</p>
+equivalent to the corresponding message's name in snake case.
+当为不同的资源引用资源名称时，字段<strong>应该</strong>是资源名称的“字符串”类型，字段名称<strong>应该</strong>等同于蛇形情况下的相应消息名称。</p>
 <ul>
 <li>Field names <strong>may</strong> include a leading adjective if appropriate (such as
-  <code>string dusty_book</code>).</li>
+  <code>string dusty_book</code>).
+  字段名称<strong>可以</strong>在适当的情况下包含一个前导形容词（例如 <code>stringdusty_book</code>）。</li>
 <li>Field names <strong>should not</strong> use the <code>_name</code> suffix unless the field would be
-  ambiguous without it (e.g., <code>crypto_key_name</code>)</li>
+  ambiguous without it (e.g., <code>crypto_key_name</code>)
+  字段名称<strong>不应</strong>使用 <code>_name</code> 后缀，除非该字段没有它会模棱两可（例如，<code>crypto key_name</code>）</li>
 <li>Fields representing another resource <strong>should</strong> provide the
   <code>google.api.resource_reference</code> annotation with the resource type being
-  referenced.</li>
+  referenced.
+  代表另一个资源的字段<strong>应该</strong>提供<code>google.api.resource_reference</code> 注释与被引用的资源类型。</li>
 </ul>
 <div class="highlight language-proto"><pre><span></span><code><span class="c1">// A representation of a book in a library.</span>
 <span class="kd">message</span> <span class="nc">Book</span> <span class="p">{</span>
@@ -933,7 +968,8 @@ equivalent to the corresponding message's name in snake case.</p>
 name as the value, not just the ID component. Services <strong>should</strong> use the
 resource name to reference resources when possible. If using the ID component
 alone is strictly necessary, the field <strong>should</strong> use an <code>_id</code> suffix (e.g.
-<code>shelf_id</code>).</p>
+<code>shelf_id</code>).
+以这种方式引用其他资源时，我们使用资源名称作为值，而不仅仅是 ID 组件。 服务<strong>应该</strong>尽可能使用资源名称来引用资源。 如果必须单独使用 ID 组件，则字段<strong>应该</strong>使用 <code>_id</code> 后缀（例如 <code>shelf_id</code>）。</p>
 <h2 id="further-reading">Further reading</h2>
 <ul>
 <li>For evolving resource names over time, see
