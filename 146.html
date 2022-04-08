@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-US" class="glue-flexbox">
   <head>
-    <title>AIP-146: Generic fields</title>
+    <title>AIP-146: Generic fields 通用字段</title>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
     <link href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans:400,500|Product+Sans:400&amp;lang=en" rel="stylesheet"></link>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" type="text/css" media="screen" href="//www.gstatic.com/glue/v22_1/glue.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=65cb5a8a">
-    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=65cb5a8a">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=ba4c32e5">
+    <link rel="stylesheet" type="text/css" media="print" href="/assets/css/print.css?v=ba4c32e5">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.4.0.min.js"></script>
     <script type="text/javascript" src="//www.gstatic.com/glue/latest/glue-detect.min.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,7 @@
         $('html').css('visibility', 'visible');
       });
     </script>
-    <script type="text/javascript" src="/assets/js/global.js?v=65cb5a8a"></script>
+    <script type="text/javascript" src="/assets/js/global.js?v=ba4c32e5"></script>
     
 <script type="text/javascript" src="/assets/js/syntax.js"></script>
 
@@ -336,7 +336,7 @@
     <li class="nav-item nav-item-active">
       <a href="/146">
         <span class="aip-number">146</span>
-        Generic fields
+        Generic fields 通用字段
       </a>
     </li>
     <li class="nav-item">
@@ -579,7 +579,7 @@
           
 <aside id="aip-sidebar" class="docs-component-sidebar">
   <table id="aip-summary">
-    <tr><th colspan="2">Generic fields</th></tr>
+    <tr><th colspan="2">Generic fields 通用字段</th></tr>
     <tr><td>Number</td><td>146</td></tr>
     <tr><td>Permalink</td><td><a href="https://google.aip.dev/146">google.aip.dev/146</a></td></tr>
     <tr><td>State</td><td>Approved</td></tr>
@@ -630,73 +630,55 @@
       
       <li class="glue-breadcrumbs__item glue-breadcrumbs__item--active"
           aria-level="3">
-        Generic fields
+        Generic fields 通用字段
       </li>
     </ol>
   </nav>
 </section>
   
   <h4 class="aip-number">AIP-146</h4>
-  <h1 id="generic-fields">Generic fields</h1>
-<p>Most fields in any API, whether in a request, a resource, or a custom response,
-have a specific type or schema. This schema is part of the contract that
-developers write their code against.</p>
-<p>However, occasionally it is appropriate to have a generic or polymorphic field
-of some kind that can conform to multiple schemata, or even be entirely
-free-form.</p>
+  <h1 id="generic-fields">Generic fields 通用字段</h1>
+<p>Most fields in any API, whether in a request, a resource, or a custom response, have a specific type or schema. This schema is part of the contract that developers write their code against.
+任何 API 中的大多数字段，无论是在请求、资源还是自定义响应中，都具有特定的类型或架构。 此模式是开发人员编写代码所依据的合同的一部分。</p>
+<p>However, occasionally it is appropriate to have a generic or polymorphic field of some kind that can conform to multiple schemata, or even be entirely free-form.
+然而，偶尔有一个通用的或多态的字段是合适的，它可以符合多个模式，甚至是完全自由的形式。</p>
 <h2 id="guidance">Guidance</h2>
-<p>While generic fields are generally rare, a service <strong>may</strong> introduce generic
-field where necessary. There are several approaches to this depending on how
-generic the field needs to be; in general, services <strong>should</strong> attempt to
-introduce the "least generic" approach that is able to satisfy the use case.</p>
+<p>While generic fields are generally rare, a service <strong>may</strong> introduce generic field where necessary. There are several approaches to this depending on how generic the field needs to be; in general, services <strong>should</strong> attempt to introduce the "least generic" approach that is able to satisfy the use case.
+虽然通用字段通常很少见，但服务<strong>可能</strong>在必要时引入通用字段。 有几种方法可以解决这个问题，具体取决于该字段需要的通用程度； 一般来说，服务<strong>应该</strong>尝试引入能够满足用例的“最不通用”的方法。</p>
 <h3 id="oneof">Oneof</h3>
-<p>A <code>oneof</code> <strong>may</strong> be used to introduce a type union: the user or service is
-able to specify one of the fields inside the <code>oneof</code>. Additionally, a <code>oneof</code>
-<strong>may</strong> be used with the same type (usually strings) to represent a semantic
-difference between the options.</p>
-<p>Because the individual fields in the <code>oneof</code> have different keys, a developer
-can programmatically determine which (if any) of the fields is populated.</p>
-<p>A <code>oneof</code> preserves the largest degree of type safety and semantic meaning for
-each option, and services <strong>should</strong> generally prefer them over other generic
-or polymorphic options when feasible. However, the <code>oneof</code> construct is
-ill-suited when there is a large (or unlimited) number of potential options, or
-when there is a large resource structure that would require a long series of
-"cascading oneofs".</p>
-<p><strong>Note:</strong> Adding additional possible fields to an existing <code>oneof</code> is a
-non-breaking change, but moving existing fields into or out of a <code>oneof</code> is
-breaking (it creates a backwards-incompatible change in Go protobuf stubs).</p>
+<p>A <code>oneof</code> <strong>may</strong> be used to introduce a type union: the user or service is able to specify one of the fields inside the <code>oneof</code>. Additionally, a <code>oneof</code> <strong>may</strong> be used with the same type (usually strings) to represent a semantic difference between the options.
+<code>oneof</code> <strong>可以</strong>用于引入类型联合：用户或服务能够指定 <code>oneof</code> 内的字段之一。 此外，<code>oneof</code> <strong>可以</strong>与相同类型（通常是字符串）一起使用，以表示选项之间的语义差异。</p>
+<p>Because the individual fields in the <code>oneof</code> have different keys, a developer can programmatically determine which (if any) of the fields is populated.
+因为 <code>oneof</code> 中的各个字段具有不同的键，开发人员可以以编程方式确定填充哪些字段（如果有）。</p>
+<p>A <code>oneof</code> preserves the largest degree of type safety and semantic meaning for each option, and services <strong>should</strong> generally prefer them over other generic or polymorphic options when feasible. However, the <code>oneof</code> construct is
+ill-suited when there is a large (or unlimited) number of potential options, or when there is a large resource structure that would require a long series of "cascading oneofs".
+<code>oneof</code> 为每个选项保留了最大程度的类型安全性和语义含义，并且服务<strong>应该</strong>通常在可行的情况下比其他通用或多态选项更喜欢它们.
+但是，当存在大量（或无限）潜在选项时，或者当存在需要一长串“级联 oneofs”的大型资源结构时，'oneof' 结构不适合。</p>
+<p><strong>Note:</strong> Adding additional possible fields to an existing <code>oneof</code> is a non-breaking change, but moving existing fields into or out of a <code>oneof</code> is breaking (it creates a backwards-incompatible change in Go protobuf stubs).
+向现有的 <code>oneof</code> 添加额外的可能字段是一项非破坏性更改，但将现有字段移入或移出 <code>oneof</code> 是破坏性的（它在 Go protobuf 存根中创建了向后不兼容的更改）。</p>
 <h3 id="maps">Maps</h3>
 <p>Maps <strong>may</strong> be used in situations where many values <em>of the
-same type</em> are needed, but the keys are unknown or user-determined.</p>
-<p>Maps are usually not appropriate for generic fields because the map values all
-share a type, but occasionally they are useful. In particular, a map can
-sometimes be suited to a situation where many objects of the same type are
-needed, with different behavior based on the names of their keys (for example,
-using keys as environment names).</p>
+same type</em> are needed, but the keys are unknown or user-determined.
+Maps <strong>可能</strong>用于需要许多相同类型的值，但键未知或用户确定的情况。</p>
+<p>Maps are usually not appropriate for generic fields because the map values all share a type, but occasionally they are useful. In particular, a map can sometimes be suited to a situation where many objects of the same type are needed, with different behavior based on the names of their keys (for example, using keys as environment names).
+映射通常不适用于通用字段，因为映射值都共享一个类型，但有时它们很有用。 特别是，映射有时可以适用于需要许多相同类型的对象的情况，它们的行为基于其键的名称（例如，使用键作为环境名称）。</p>
 <h3 id="struct">Struct</h3>
-<p>The <a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/struct.proto"><code>google.protobuf.Struct</code></a> object <strong>may</strong> be used to represent arbitrary
-nested JSON. Keys can be strings, and values can be floats, strings, booleans,
-arrays, or additional nested structs, allowing for an arbitrarily nested
-structure that can be represented as JSON (and is automatically represented as
-JSON when using REST/JSON).</p>
-<p>A <code>Struct</code> is most useful when the service does not know the schema in advance,
-or when a service needs to store and retrieve arbitrary but structured user
-data. Using a <code>Struct</code> is convenient for users in this case because they can
-easily get JSON objects that can be natively manipulated in their environment
-of choice.</p>
-<p>If a service needs to reason about the <em>schema</em> of a <code>Struct</code>, it <strong>should</strong>
-use <a href="https://json-schema.org/">JSONSchema</a> for this purpose. Because JSONSchema is itself JSON, a valid
-JSONSchema document can itself be stored in a <code>Struct</code>.</p>
+<p>The <a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/struct.proto"><code>google.protobuf.Struct</code></a> object <strong>may</strong> be used to represent arbitrary nested JSON. Keys can be strings, and values can be floats, strings, booleans, arrays, or additional nested structs, allowing for an arbitrarily nested structure that can be represented as JSON (and is automatically represented as
+JSON when using REST/JSON).
+<a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/struct.proto"><code>google.protobuf.Struct</code></a> 对象<strong>可</strong>用于表示任意嵌套的 JSON。 键可以是字符串，值可以是浮点数、字符串、布尔值、数组或其他嵌套结构，允许任意嵌套结构，可以表示为 JSON（并自动表示为
+使用 REST/JSON 时的 JSON）。</p>
+<p>A <code>Struct</code> is most useful when the service does not know the schema in advance, or when a service needs to store and retrieve arbitrary but structured user data. Using a <code>Struct</code> is convenient for users in this case because they can easily get JSON objects that can be natively manipulated in their environment of choice.
+当服务事先不知道架构时，或者当服务需要存储和检索任意但结构化的用户数据时，“结构”最有用。 在这种情况下，使用 <code>Struct</code> 对用户来说很方便，因为他们可以很容易地获得可以在他们选择的环境中本地操作的 JSON 对象。</p>
+<p>If a service needs to reason about the <em>schema</em> of a <code>Struct</code>, it <strong>should</strong> use <a href="https://json-schema.org/">JSONSchema</a> for this purpose. Because JSONSchema is itself JSON, a valid JSONSchema document can itself be stored in a <code>Struct</code>.
+如果服务需要推理 <code>Struct</code> 的模式，它<strong>应该</strong>为此使用 <a href="https://json-schema.org/">JSONSchema</a>。 因为 JSONSchema 本身就是 JSON，所以一个有效的 JSONSchema 文档本身可以存储在一个 <code>Struct</code> 中。</p>
 <h3 id="any">Any</h3>
-<p>The <a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/any.proto"><code>google.protobuf.Any</code></a> object can be used to send an arbitrary
-serialized protocol buffer and a type definition.</p>
-<p>However, this introduces complexity, because an <code>Any</code> becomes useless for any
-task other than blind data propagation if the consumer does not have access to
-the proto. Additionally, even if the consumer <em>does</em> have the proto, the
-consumer has to ensure the type is registered and then deserialize manually,
-which is an often-unfamiliar process.</p>
-<p>Because of this, <code>Any</code> <strong>should not</strong> be used unless other options are
-infeasible.</p>
+<p>The <a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/any.proto"><code>google.protobuf.Any</code></a> object can be used to send an arbitrary serialized protocol buffer and a type definition.
+<a href="https://github.com/protocolbuffers/protobuf/tree/master/src/google/protobuf/any.proto"><code>google.protobuf.Any</code></a> 对象可用于发送任意序列化协议缓冲区和类型定义。</p>
+<p>However, this introduces complexity, because an <code>Any</code> becomes useless for any task other than blind data propagation if the consumer does not have access to the proto. Additionally, even if the consumer <em>does</em> have the proto, the consumer has to ensure the type is registered and then deserialize manually,
+which is an often-unfamiliar process.
+但是，这会带来复杂性，因为如果消费者无法访问原型，那么除了盲数据传播之外的任何任务都将变得无用。 此外，即使消费者确实拥有原型，消费者也必须确保类型已注册，然后手动反序列化，这是一个经常不熟悉的过程。</p>
+<p>Because of this, <code>Any</code> <strong>should not</strong> be used unless other options are infeasible.
+因此，除非其他选项不可行，否则不应使用 <code>Any</code> **。</p>
 <!-- prettier-ignore-start -->
 <!-- prettier-ignore-end -->
   <footer>
