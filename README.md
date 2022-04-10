@@ -1,6 +1,6 @@
-# API Improvement Proposals
+# API Improvement Proposals API 改进建议
 
-**TL;DR:** AIPs are lots of documents on how Google does APIs.
+**TL;DR:** AIPs are lots of documents on how Google does APIs. AIP 是关于 Google 如何使用 API 的大量文档。
 
 ## Overview
 
@@ -10,8 +10,11 @@ for these documents to serve as the source of truth for API-related
 documentation at Google and the way API teams discuss and come to consensus on
 API guidance. The program is named and styled after Python's enhancement
 proposals (PEPs) which have seemed to work pretty well over the years.
+AIP 表示 **API Improvement Proposal**，它是一个设计文档，为 API 开发提供高级、简洁的文档。
+目标是让这些文档成为 Google API 相关文档的真实来源，以及 API 团队讨论并就 API 指南达成共识的方式。
+该程序以 Python's enhancement proposals  (PEPs) 命名和设计样式，这些建议多年来似乎运行良好。
 
-### Specific areas inside Google
+### Specific areas inside Google  Google 内部的特定区域
 
 While much of the API-related guidance is general and spans across all the
 different products at Google, we've found that some teams working in different
